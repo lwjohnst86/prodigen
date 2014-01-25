@@ -1,0 +1,40 @@
+## This Makefile was created on $DATE by Luke Johnston for the project
+## ${ProjectDir}.  Running this Makefile will run the analysis files
+## in SAS and R to create the output files in the output directory.
+## Before submitting the paper to a Journal or writing up the final
+## version of the manuscript, type "make" or "make all" to create
+## up-to-date output files, figures, and the reports.
+
+### Variable Definitions ###
+SHELL := /bin/sh # Tells make to use shell for shell commands
+VPATH = scripts/functions dataset scripts # Tells make to search these directories for files
+OBJ = variables.lst analysis.lst analysis.Rout # Object files to be created
+
+all : refresh clean $(OBJ)
+
+variables.lst : variables.sas
+	sas $<
+
+analysis.lst : analysis.sas
+	sas $< # The "$<" = use the first dependency, in this case analysis.sas
+
+analysis.Rout : analysis.R
+	R CMD BATCH $<
+
+# Include a rule for running knitr, and the latex files
+# can call other makefiles using "$(MAKE) -C ./report/make"
+
+.PHONY : refresh # To run this rule, type into the terminal "make refresh"
+
+refresh :
+	cp -fvu ~/R/functions/functions.R ./scripts/functions
+	cp -fvu ~/SAS/macros/* ./scripts/functions
+	cp -fvu ~/SAS/formats/* ./scripts/functions
+	cp -fvup ~/Documents/datasets/${DatasetName}/data/${DatasetName}_data.csv.gz ./dataset
+	chmod 444 ./scripts/functions/*
+
+.PHONY : clean # To run this rule, type into the terminal "make clean"
+
+clean :
+	find output -type f -delete
+	find scripts -type f -name *.{lst, log, Rout} -delete

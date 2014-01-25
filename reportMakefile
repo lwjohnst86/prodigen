@@ -1,0 +1,16 @@
+## This Makefile was created on $DATE by Luke Johnston and
+## will convert the .md file into a .tex file, after which
+## latexmk will convert the main .tex file into a pdf.
+## Run the makefile by typing "make" in the terminal.
+## To create a doc file, run "make doc" in the terminal.
+
+pdf:
+	pandoc ${ProjectDir}Manuscript.md -o ${ProjectDir}Manuscript.tex
+	latexmk -pdf -view=pdf -outdir=tmp ${ProjectDir}ManuscriptMain.tex
+	rm ${ProjectDir}Manuscript.tex
+
+doc: 
+	pandoc ${ProjectDir}Manuscript.md -o ${ProjectDir}Manuscript.tex
+	latexmk -outdir=tmp ${ProjectDir}ManuscriptMain.tex
+	mk4ht oolatex ${ProjectDir}ManuscriptMain.tex "" "" " -d./tmp/"
+	rm ${ProjectDir}Manuscript.tex

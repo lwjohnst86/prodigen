@@ -1,0 +1,62 @@
+
+This README details how this research directory is structured, how
+files should be run, what the different files do, and what to do if
+the directory is outside of Luke's computer system.
+
+If the files within this project are going to be run, the prerequisite
+programs are: make (GNU make), LaTeX (TeXLive or MikTeX, etc.; also
+will likely need pgfplotstable from LaTeX), pandoc (for the markdown
+conversion), shell script, SAS, R, knitr (for R)
+
+The project directory is structured with dataset, scripts, output, and
+report folders:
+
+	dataset folder contains the dataset (both the original and the
+	project subsetted dataset), all of which are write-locked to
+	prevent accidental changes to the data.  If the dataset is
+	within its original file structure (i.e. the original dataset
+	is located in the operating system), then just type "make
+	refresh" in the terminal to update the dataset.  Otherwise,
+	the dataset remains as it was since its last update.
+
+	scripts folder contains the scripts which runs the analyses
+	and figure generations, outputting them into the output
+	folder.  There are various .sas and .R files that achieve
+	different purposes, for example, the "variables.sas" file
+	subsets the original dataset and creates relevant variables
+	while the "analysis.sas" file will run the analyses and output
+	the results that can also be used in the generation of the
+	report.
+
+	functions folder within the scripts folder contains the files
+	that have all the needed functions, macros, and formats for
+	the script files in the scripts folder.  These files are
+	read-only.  If they need to be updated, type "make refresh"
+	into the terminal (Note: this will not work if the original
+	files are not present on the system).
+
+	output folder (with the internal figs folder) will contain all
+	the output files generated from the SAS and R scripts which
+	are necessary for the analysis and the report.  The idea
+	behind the output folder is that you should be able to delete
+	all the files, run the scripts again, and generate all the
+	necessary result files.  In fact, in the base directory of the
+	project folder (./), the command "make clean" should be run in
+	the terminal to delete all output files to make sure that the
+	script files are generating all the needed output files.
+
+	report folder contains the files to create the final report
+	for the research project.  The hope is that all the results
+	within the report can be generated multiple times (using knitr
+	and pgfplotstable) so that if the analysis changes, all
+	numbers do not need to be re-entered.  This process is known
+	as "reproducible research" and should aggressively be adhered
+	to, to be as scientific as possible.  In order to generate the
+	document, type the command "cd ./report", followed by "make"
+	into the terminal to generate the document in pdf format.
+	Changes to the report that require another "make" run do not
+	need to "cd" again.  To create a Word/OpenDocument final
+	report, first the package "tex4ht" in the
+	${ProjectDir}ManuscriptMain.tex file must be uncommented, then
+	simply type "make doc" into the terminal.
+
