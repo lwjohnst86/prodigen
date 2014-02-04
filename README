@@ -6,7 +6,7 @@ the directory is outside of Luke's computer system.
 If the files within this project are going to be run, the prerequisite
 programs are: make (GNU make), LaTeX (TeXLive or MikTeX, etc.; also
 will likely need pgfplotstable from LaTeX), pandoc (for the markdown
-conversion), shell script, SAS, R, knitr (for R)
+conversion), shell script, SAS, R, knitr (for R), and git.
 
 The project directory is structured with dataset, scripts, output, and
 report folders:
@@ -51,12 +51,12 @@ report folders:
 	and pgfplotstable) so that if the analysis changes, all
 	numbers do not need to be re-entered.  This process is known
 	as "reproducible research" and should aggressively be adhered
-	to, to be as scientific as possible.  In order to generate the
-	document, type the command "cd ./report", followed by "make"
-	into the terminal to generate the document in pdf format.
-	Changes to the report that require another "make" run do not
-	need to "cd" again.  To create a Word/OpenDocument final
-	report, first the package "tex4ht" in the
-	${ProjectDir}ManuscriptMain.tex file must be uncommented, then
-	simply type "make doc" into the terminal.
+	to, to be as scientifically responsible as possible.  In order
+	to generate the document, type the command "cd ./report",
+	followed by "make" into the terminal to generate the document
+	in pdf format.  Changes to the report that require another
+	"make" run do not need to "cd" again.  To create a
+	Word/OpenDocument final report, first the package "tex4ht" in
+	the ${ProjectDir}ManuscriptMain.tex file must be uncommented,
+	then simply type "make doc" into the terminal.
 

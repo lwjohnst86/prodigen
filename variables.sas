@@ -31,7 +31,6 @@ proc export data=&ds
     replace;
 run;
 
-/* Compress the new dataset and change to read-only */
-    x 'gzip -f -9 ../dataset/${ProjectDir}_data.csv; chmod 444 ../dataset/${ProjectDir}_data.csv.gz';
-* likely requires UNIX;
-
+* Compress the new dataset and change to read-only. Requires Unix OS;
+x 'gzip -f -9 ../dataset/${ProjectDir}_data.csv;
+chmod 444 ../dataset/${ProjectDir}_data.csv.gz';
