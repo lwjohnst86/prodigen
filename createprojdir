@@ -84,7 +84,7 @@ cp -fvu $TEMPLATES/analysis.sas ./
 cp -fvu $TEMPLATES/analysis.R ./
 
 cd ..
-find . -type f -exec  sed -e 's/\${ProjectDir}/'$ProjectDir'/g' \
+find . -type f -exec  sed -i -e 's/\${ProjectDir}/'$ProjectDir'/g' \
     -e 's/\${DatasetName}/'$DatasetName'/g' \
     -e 's/\$DATE/'$DATE'/g' \
     {} \;
@@ -103,15 +103,9 @@ git init
 cat > .gitignore << EOF
 ## This file tells git to ignore the following files and folders:
 *~
-*.log
-*.lst
-*.Rout
-*.out
-scripts/functions/
-dataset/
-output/
-report/tmp/
-report/old/
+*
+!*.{sas,R,md,tex}
+!.gitignore
 EOF
 
 ## Add the files to be tracked by git
