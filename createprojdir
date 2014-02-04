@@ -1,0 +1,123 @@
+#!/bin/sh
+
+# This script was created July 29, 2013, by Luke Johnston to fulfill
+# the goal of creating a standardized research project directory tree.
+
+# This script is to be used on the command-line by changing the
+# directory to the current folder ("cd ~/Documents/research-project")
+# and typing "sh createprojdir").  A prompt will ask for a project
+# name (without spaces) and for the dataset name (a file located in
+# ~/Documents/datasets ending in "_data.csv". At the prompt enter the
+# dataset name without the _data.csv ending, i.e. type PROMISE for the
+# PROMISE_data.csv file).
+
+# Variables to be used
+echo "Please enter a meaningful and short project name, without spaces:"
+read ProjectDir
+echo "Please enter the name of the dataset file, one that is located in
+the ~/Documents/datasets folder with a '_data.csv' somewhere in the file name:"
+read DatasetName
+
+MainDirTree="dataset scripts/functions output/figs report/tmp report/submission report/old"
+DATE=$(date +"%F") # Stands for YYYY-MM-DD
+TEMPLATES=$HOME/Templates/research-projects
+
+# Fetch the directory path where the script is located
+cd $(dirname $0) && pwd 
+
+# Check to make sure a folder doesn't already exist with the
+# $ProjectDir name
+if [ -d "$ProjectDir" ]
+then
+    echo "Error: Folder already exists."
+    exit 1 # Causes script to exit with a failure
+else
+    mkdir -v ${ProjectDir} && cd ./"$_"
+    # The "$_" = using the first argument of the previous command
+    pwd
+fi
+
+# Create main folders within research project folder
+mkdir -p -v ${MainDirTree}
+
+# Find the $DatasetName within the dataset directory and copy that
+# dataset into the $ProjectDir.  The dataset is compressed (".gz")
+# from the original location to save on disk space.  The file
+# permissions from the original location are read-only to prevent
+# opening in a spreadsheet and accidentally changing the data.
+
+find $HOME/Documents/datasets -type f \
+    -name ${DatasetName}_data.csv.gz \
+    -exec cp -p {} ./dataset/ \;
+
+# Find the macro, format, and function files for R and SAS.  Copy the
+# find command output to the functions folder of the $ProjectDir.
+# Then chmod to read-only (444) so that files can't be changed unless
+# updated from the master file in their original respective folders
+
+find $HOME/SAS/{formats,macros} -type f \
+    -iname "*.sas" \
+    -exec cp -p {} ./scripts/functions \;
+
+cp $HOME/R/functions/functions.R ./scripts/functions
+chmod 444 ./scripts/functions/*.{sas,R}
+
+# Copy the template files. EOF stands for end of file. The << creates
+# a here-document that outputs all the text between the two EOF and
+# inputs it into the > ./filename
+
+cp -fvu $TEMPLATES/README ./
+cp -fvu $TEMPLATES/mainMakefile ./
+mv mainMakefile Makefile
+
+cd ./report
+touch ${ProjectDir}Manuscript.md # may need to change to include knitr
+cp -fvu $TEMPLATES/{ProjectDir}ManuscriptMain.tex ./
+mv {ProjectDir}ManuscriptMain.tex ${ProjectDir}ManuscriptMain.tex
+cp -fvu $TEMPLATES/reportMakefile ./
+mv reportMakefile Makefile
+
+cd ../scripts
+cp -fvu $TEMPLATES/options.sas ./functions
+cp -fvu $TEMPLATES/variables.sas ./
+cp -fvu $TEMPLATES/analysis.sas ./
+cp -fvu $TEMPLATES/analysis.R ./
+
+cd ..
+find . -type f -exec  sed -e 's/\${ProjectDir}/'$ProjectDir'/g' \
+    -e 's/\${DatasetName}/'$DatasetName'/g' \
+    -e 's/\$DATE/'$DATE'/g' \
+    {} \;
+
+ls -R
+
+## Initiate a git repository.  Git is a version control system which
+## allows tracking of changes made to the files and allows you to go
+## back to previous versions of a file.  This is a very powerful and
+## useful software for documenting what you did and why!
+
+git init
+
+## Create a file to tell git to ignore version controlling the given files
+
+cat > .gitignore << EOF
+## This file tells git to ignore the following files and folders:
+*~
+*.log
+*.lst
+*.Rout
+*.out
+scripts/functions/
+dataset/
+output/
+report/tmp/
+report/old/
+EOF
+
+## Add the files to be tracked by git
+
+git add --all
+
+## Commit the first version
+
+git commit -a -m "Project's first version commit."
