@@ -21,6 +21,7 @@ read DatasetName
 MainDirTree="dataset scripts/functions output/figs report/tmp report/submission report/old"
 DATE=$(date +"%F") # Stands for YYYY-MM-DD
 TEMPLATES=$HOME/Templates/research-projects
+RVERSION=$(R --version | head -1 | cut -c1-28)
 
 # Fetch the directory path where the script is located
 cd $(dirname $0) && pwd 
