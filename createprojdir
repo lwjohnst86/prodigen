@@ -67,11 +67,6 @@ chmod 444 ./scripts/functions/*.{sas,R}
 ## folder
 
 cp -fvu $TEMPLATES/README.md ./
-pandoc README.md -V geometry:margin=1in \
-    -V mainfont="DejaVu Serif" \
-    -V fontsize=12pt \
-    -o README.pdf
-mv README.md .README.md
 
 cp -fvu $TEMPLATES/mainMakefile ./
 mv mainMakefile Makefile
@@ -94,6 +89,13 @@ find . -type f -exec  sed -i -e 's/\${ProjectDir}/'$ProjectDir'/g' \
     -e 's/\${DatasetName}/'$DatasetName'/g' \
     -e 's/\$DATE/'$DATE'/g' \
     {} \;
+
+## Create a PDF of the README file.
+pandoc README.md -V geometry:margin=1in \
+    -V mainfont="DejaVu Serif" \
+    -V fontsize=12pt \
+    -o README.pdf
+mv README.md .README.md
 
 ls -R
 
