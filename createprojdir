@@ -112,14 +112,8 @@ git init
 cat > .gitignore << EOF
 ## This file tells git to ignore the following files and folders:
 *~
-*
-!scripts/
-!scripts/*.sas
-!scripts/*.R
-!report/
-!report/*.md
-!report/*.tex
-!.gitignore
+dataset/
+output/
 EOF
 
 ## Add the files to be tracked by git
