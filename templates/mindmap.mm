@@ -63,6 +63,8 @@
 <icon BUILTIN="yes"/>
 </node>
 <node TEXT="Obtain as many articles as possible&#xa;on first few search sessions" ID="ID_1848281300" CREATED="1391542151426" MODIFIED="1397856429537" MAX_WIDTH="400" MIN_WIDTH="1"/>
+<node TEXT="Import into master Docear mindmap" ID="ID_746336745" CREATED="1397858206227" MODIFIED="1397858214268" MOVED="1397858282457"/>
+<node TEXT="Copy files into this mindmap" ID="ID_1953488766" CREATED="1397858214427" MODIFIED="1397858223543" MOVED="1397858282494"/>
 <node TEXT="Go through the articles, starting from&#xa;the review articles, down to original&#xa;research articles, using highlight and&#xa;comments so Docear can track them." ID="ID_547223283" CREATED="1391543075138" MODIFIED="1391546472927" MAX_WIDTH="400" MIN_WIDTH="1"/>
 <node TEXT="As you read, keep in mind potential questions/issues&#xa;and store these potential questions in an additional&#xa;Docear branch (labeled appropriately)" ID="ID_1315245752" CREATED="1391543298504" MODIFIED="1397856477223" MAX_WIDTH="400" MIN_WIDTH="1">
 <icon BUILTIN="yes"/>
