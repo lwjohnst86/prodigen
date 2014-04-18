@@ -84,6 +84,9 @@ cp -fvu $TEMPLATES/variables.sas ./
 cp -fvu $TEMPLATES/analysis.sas ./
 cp -fvu $TEMPLATES/analysis.R ./
 
+cd ../lit/mindmap
+cp -fvu $TEMPLATES/mindmap.mm ./
+
 cd ..
 find . -type f -exec  sed -i -e 's/\${ProjectDir}/'$ProjectDir'/g' \
     -e 's/\${DatasetName}/'$DatasetName'/g' \

@@ -2,7 +2,7 @@
 <!--To view this file, download Docear - The Academic Literature Suite from http://www.docear.org -->
 <node TEXT="[Title of project]" FOLDED="false" ID="ID_1647181744" CREATED="1390338736217" MODIFIED="1397856379318">
 <hook NAME="AutomaticEdgeColor" COUNTER="6"/>
-<hook NAME="MapStyle">
+<hook NAME="MapStyle" zoom="0.909">
     <properties show_note_icons="true"/>
 
 <map_styles>
