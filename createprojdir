@@ -20,7 +20,7 @@ read DatasetName
 
 MainDirTree="dataset scripts/functions output/figs report/tmp report/submission report/old lit/bib-db lit/mindmap lit/diagrams/dag"
 DATE=$(date +"%F") # Stands for YYYY-MM-DD
-TEMPLATES=$HOME/Templates/research-projects
+TEMPLATES=./templates
 RVERSION=$(R --version | head -1 | cut -c1-28)
 
 ## Fetch the directory path where the script is located
@@ -117,7 +117,7 @@ git init
 cat > .gitignore << EOF
 ## This file tells git to ignore the following files and folders:
 *~
-dataset/
+dataset/${ProjectDir}_data.csv.gz
 output/
 EOF
 
