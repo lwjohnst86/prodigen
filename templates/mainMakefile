@@ -37,4 +37,8 @@ refresh :
 
 clean :
 	find output -type f -delete
-	find scripts -type f -name *.{lst, log, Rout} -delete
+	find scripts -type f \( -iname "*.lst" -o \
+		-iname "*.log" -o \
+		-iname "*.Rout" -o \
+		-iname "*.out" \) \
+		-delete
