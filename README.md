@@ -19,4 +19,6 @@
 * rename the script to something else.
 * Include scripts that can print off the version of each program used
   (e.g. R, SAS, LaTeX, etc.)
-* 
+* Include a script that will generate documentations of the macros, in
+  html, for the functions folder, make a doc folder?
+  
