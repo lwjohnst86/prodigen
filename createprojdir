@@ -18,7 +18,7 @@ echo "Please enter the name of the dataset file, one that is located in
 the ~/Documents/datasets folder with a '_data.csv' somewhere in the file name:"
 read DatasetName
 
-MainDirTree="dataset scripts/functions output/figs report/tmp report/submission report/old lit/bib-db lit/mindmap lit/diagrams/dag"
+MainDirTree=dataset scripts/functions output/figs report/{tmp,submission} lit/{bib-db,mindmap,diagrams/dag}
 DATE=$(date +"%F") # Stands for YYYY-MM-DD
 TEMPLATES=./templates
 RVERSION=$(R --version | head -1 | cut -c1-28)
