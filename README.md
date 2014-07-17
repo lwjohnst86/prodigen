@@ -1,6 +1,6 @@
 # Brief summary of script #
 
-This program will create a project directory structure with template files necessary for managing and analyzing data, as well as writing up a manuscript.  This allows for a standardized approach to having modular research projects. 
+Note: This program is still in development.  This program will create a project directory structure with template files necessary for managing and analyzing data, as well as writing up a manuscript.  This allows for a standardized approach to having modular research projects. 
 
 # Dependencies #
 
