@@ -19,3 +19,4 @@
   html, for the functions folder, make a doc folder?
 * include the for.sas macro in the template file? 
 * include my GitHub url for the sastoolkit in the documentation of the sas and R scripts
+* include a STROBE checklist in templates?
