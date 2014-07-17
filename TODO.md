@@ -17,3 +17,5 @@
   (e.g. R, SAS, LaTeX, etc.)
 * Include a script that will generate documentations of the macros, in
   html, for the functions folder, make a doc folder?
+* include the for.sas macro in the template file? 
+* include my GitHub url for the sastoolkit in the documentation of the sas and R scripts
