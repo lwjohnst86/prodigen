@@ -1,15 +1,17 @@
 # Brief summary of script #
 
-Note: This program is still in development.  This program will create a project directory structure with template files necessary for managing and analyzing data, as well as writing up a manuscript.  This allows for a standardized approach to having modular research projects. 
+Note: This program is still in development.
+
+This is a *pro*ject *di*rectory *gen*erator (prodigen) that will create a project directory structure with template files necessary for managing and analyzing data, as well as writing up a manuscript.  This allows for a standardized approach to having modular research projects. 
 
 # Dependencies #
 
-## --- for running the program ##
+## --- Running the program ##
 
 * Bash, or any shell program
 * Make
 
-## --- for using the generated files/scripts ##
+## --- For using the generated files/scripts ##
 
 * SAS --- scripts containing analysis 
 * R --- scripts containing analysis
