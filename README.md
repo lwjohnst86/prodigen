@@ -2,7 +2,7 @@
 
 Note: This program is still in development.
 
-This is a <b>pro</b>ject <b>di<\b>rectory <b>gen</b>erator (prodigen) that will create a project directory structure with template files necessary for managing and analyzing data, as well as writing up a manuscript.  This allows for a standardized approach to having modular research projects.  This program can be found at [github.com/lwjohnst86/prodigen](https://github.com/lwjohnst86/prodigen).
+This is a <b>pro</b>ject <b>di</b>rectory <b>gen</b>erator (prodigen) that will create a project directory structure with template files necessary for managing and analyzing data, as well as writing up a manuscript.  This allows for a standardized approach to having modular research projects.  This program can be found at [github.com/lwjohnst86/prodigen](https://github.com/lwjohnst86/prodigen).
 
 # Dependencies #
 
