@@ -1,6 +1,9 @@
 /*!
 
-    This SAS script will import the $DATASET and keep or create variables relevant for analysis for the project $PROJECT.  The script will then create a project specific dataset that the analysis SAS and R script will analyze.
+    This SAS script will import the $DATASET and keep or create
+    variables relevant for analysis for the project $PROJECT.  The script
+    will then create a project specific dataset that the analysis SAS and
+    R script will analyze.
     
     * @author $AUTHOR
     * @created $DATE
@@ -31,7 +34,10 @@ run;
     File that contains all user-defined macros.  This is a read-only
     file; the original is found in ~/SAS/src/macros.  If the file needs
     updating, using run `make refresh` in the parent directory of this
-    project (i.e. epaDiabetes/).  The master file should be in a different location, updating the copy using the makefile (`make refresh`) whenever the master file is changed.  For this project, the master $MACROS file is 
+    project (i.e. epaDiabetes/).  The master file should be in a different
+    location, updating the copy using the makefile (`make refresh`)
+    whenever the master file is changed.  For this project, the master
+    $MACROS file is
 
     */
 %inc './functions/macros.sas';
