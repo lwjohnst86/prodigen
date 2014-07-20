@@ -13,84 +13,78 @@
 
 ## Variables to be read into from user input
 echo "Please enter a meaningful and short project name, without spaces:"
-read ProjectDir
-echo "Please enter the name of the dataset file, one that is located in
-the ~/Documents/datasets folder with a '_data.csv' somewhere in the file name:"
-read DatasetName
+read PROJECT
+echo "How you filled out the configuration file (pdg.conf)? yes/no"
+read FILLEDCONF
 
-MainDirTree=dataset scripts/functions output/figs report/{tmp,submission} lit/{bib-db,mindmap,diagrams/dag}
-DATE=$(date +"%F") # Stands for YYYY-MM-DD
+## Set when the template files are located
 TEMPLATES=./templates
-RVERSION=$(R --version | head -1 | cut -c1-28)
 
-## Fetch the directory path where the script is located
-cd $(dirname $0) && pwd 
+## Check answer to FILLEDCONF and source the CONFIG_FILE
+CONFIG_FILE=./pdg.conf
+
+if [[ $FILLEDCONF = "yes" ]]
+then 
+    if [[ -f $CONFIG_FILE ]]
+    then
+        . $CONFIG_FILE
+    fi
+else
+    echo "Please fill out the config file with your information before proceeding"
+    exit 1 # Exit with a failure
+fi
+
+## Change directory to where your research projects are located
+cd $RESEARCHDIR 
 
 ## Check to make sure a folder doesn't already exist with the
-## $ProjectDir name
-if [ -d "$ProjectDir" ]
+## $PROJECT name
+if [[ -d $PROJECT ]]
 then
     echo "Error: Folder already exists."
     exit 1 ## Causes script to exit with a failure
 else
-    mkdir -v ${ProjectDir} && cd ./"$_"
+    mkdir -v $PROJECT && cd ./"$_"
     ## The "$_" = using the first argument of the previous command
     pwd
 fi
 
 ## Create main folders within research project folder
-mkdir -p -v ${MainDirTree}
+mkdir -p -v $DIRTREE
 
-## Find the $DatasetName within the dataset directory and copy that
-## dataset into the $ProjectDir.  The dataset is compressed (".gz")
-## from the original location to save on disk space.  The file
-## permissions from the original location are read-only to prevent
-## opening in a spreadsheet and accidentally changing the data.
+## Copy dataset to project directory
+cp -p $DATASET ./dataset
 
-find $HOME/Documents/datasets -type f \
-    -name ${DatasetName}_data.csv.gz \
-    -exec cp -p {} ./dataset/ \;
-
-## Find the macro, format, and function files for R and SAS.  Copy the
-## find command output to the functions folder of the $ProjectDir.
-## Then chmod to read-only (444) so that files can't be changed unless
-## updated from the master file in their original respective folders
-
-find $HOME/SAS/{formats,macros} -type f \
-    -iname "*.sas" \
-    -exec cp -p {} ./scripts/functions \;
-
-cp $HOME/R/functions/functions.R ./scripts/functions
+## Copy functions and macros to project, chmod to read-only (444).
+## Only the master files can be edited, with these copies able to be
+## updated using the makefile (make referesh)
+for i in $FUNCTIONS $MACROS; do
+    cp $i ./scripts/functions
+done
 chmod 444 ./scripts/functions/*.{sas,R}
 
 ## Copy the template files from the `Template` folder to the project
-## folder
+for i in README.md Makefile; do 
+    cp -fvu $TEMPLATES/$i .
+done
 
-cp -fvu $TEMPLATES/README.md ./
+for i in manuscript.md; do
+    cp -fvu $TEMPLATES/$i report
+done
 
-cp -fvu $TEMPLATES/mainMakefile ./
-mv mainMakefile Makefile
+for i in variables.sas analysis.sas analysis.R; do
+    cp -fvu $TEMPLATES/$i scripts
 
-cd ./report
-touch ${ProjectDir}Manuscript.md # may need to change to include knitr
-cp -fvu $TEMPLATES/{ProjectDir}ManuscriptMain.tex ./
-mv {ProjectDir}ManuscriptMain.tex ${ProjectDir}ManuscriptMain.tex
-cp -fvu $TEMPLATES/reportMakefile ./
-mv reportMakefile Makefile
+cp -fvu $TEMPLATES/mindmap.mm lit/mindmap
 
-cd ../scripts
-cp -fvu $TEMPLATES/options.sas ./functions
-cp -fvu $TEMPLATES/variables.sas ./
-cp -fvu $TEMPLATES/analysis.sas ./
-cp -fvu $TEMPLATES/analysis.R ./
-
-cd ../lit
-cp -fvu $TEMPLATES/mindmap.mm ./mindmap
-
-cd ..
-find . -type f -exec  sed -i -e 's/\${ProjectDir}/'$ProjectDir'/g' \
-    -e 's/\${DatasetName}/'$DatasetName'/g' \
+find . -type f -exec  sed -i -e 's/\$PROJECT/'$PROJECT'/g' \
+    -e 's/\${PROJECT}/'$DATASET'/g' \
+    -e 's/\$BIBLIO/'$BIBLIO'/g' \
+    -e 's/\$BIBSTYLE/'$BIBSTYLE'/g' \
+    -e 's/\$DATASET/'$DATASET'/g' \
     -e 's/\$DATE/'$DATE'/g' \
+    -e 's/\$AUTHOR/'$AUTHOR'/g' \
+    -e 's/\$MACROS/'"$MACROS"'/g' \
     {} \;
 
 ## Create a PDF of the README file.
@@ -98,7 +92,6 @@ pandoc README.md -V geometry:margin=1in \
     -V mainfont="DejaVu Serif" \
     -V fontsize=12pt \
     -o README.pdf
-mv README.md .README.md
 
 ls -R
 
@@ -117,7 +110,7 @@ git init
 cat > .gitignore << EOF
 ## This file tells git to ignore the following files and folders:
 *~
-dataset/${ProjectDir}_data.csv.gz
+.~*
 output/
 EOF
 
@@ -127,4 +120,4 @@ git add .
 
 ## Commit the first version
 
-git commit -am "Project's first version commit."
+git commit -m "Project's first version commit."
