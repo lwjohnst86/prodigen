@@ -99,14 +99,12 @@ ls -R
 ## allows tracking of changes made to the files and allows you to go
 ## back to previous versions of a file.  This is a very powerful and
 ## useful software for documenting what you did and why!
-
 git init
 
 ## Create a file to tell git to ignore version controlling the given
 ## files EOF stands for end of file. The << creates a here-document
 ## that outputs all the text between the two EOF and inputs it into
 ## the > ./filename
-
 cat > .gitignore << EOF
 ## This file tells git to ignore the following files and folders:
 *~
@@ -115,9 +113,7 @@ output/
 EOF
 
 ## Add the files to be tracked by git
-
 git add .
 
 ## Commit the first version
-
 git commit -m "Project's first version commit."
