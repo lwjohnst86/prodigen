@@ -13,14 +13,6 @@ run;
 
 /**
 
-    Import options for this SAS script, such as line length, etc.
-
-    */
-%inc './functions/options.sas';
-run;
-
-/**
-
     The for.sas macro allows looping through repetitive chunks of code
     in so-called "open code" by sas (as in, while in a datastep).  This is
     a read-only file, as it should not need to be edited. 
@@ -43,19 +35,34 @@ run;
 %inc './functions/macros.sas';
 run;
 
+/**
+
+    Set various options for SAS.
+
+    */
+options nodate nonumber nocenter formdlim="" nolabel;
+filename suppress dummy; * Suppress output;
+filename temp temp; * Outputting results using user macros;
+title; * Remove title from each page of output;
+*options macrogen mlogic mprintnest symbolgen; * For debugging;
+run;
+
+/**************************************************/
+
 /*
 
     The following command unzips the compressed dataset to use in sas. 
     
     */
 %let ds = working;
-    %csvgz_import(dataset=$DATASET, outds=&ds);
-    %contents(dataset=&ds);
+%csvgz_import(dataset=$DATASET, outds=&ds);
+%contents(dataset=&ds);
 run;
 
 /**
 
-    Keep and create variables from the original dataset that will be output to another dataset used by the analysis scripts.
+    Keep and create variables from the original dataset that will be
+    output to another dataset used by the analysis scripts.
     
     */
 data &ds;
@@ -68,14 +75,15 @@ run;
 
 /**
 
-    Export the project specific dataset into csv.  Compress the new dataset and change to read-only. Requires Unix OS. 
+    Export the project specific dataset into csv.  Compress the new
+    dataset and change to read-only. Requires Unix OS.
     
     */
 proc export data=&ds
-    outfile="../dataset/${PROJECT}. data.csv"
+    outfile="../dataset/${PROJECT}_data.csv"
     dbms=csv
     replace;
 run;
 
-x 'gzip -f -9 ../dataset/${PROJECT}. data.csv;
-chmod 444 ../dataset/${PROJECT}.data.csv.gz';
+x 'gzip -f -9 ../dataset/${PROJECT}_data.csv;
+chmod 444 ../dataset/${PROJECT}_data.csv.gz';
