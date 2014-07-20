@@ -47,7 +47,7 @@ clean :
 		-delete
 
 # Include a rule for running knitr, and the latex files
-manuscript.pdf : manuscript.md
+report: manuscript.pdf : manuscript.md
 	pandoc manuscript.md \
 		--biblio $(BIBDIR) \
 		--csl $(CSLDIR) \
