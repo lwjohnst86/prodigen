@@ -1,6 +1,6 @@
 /*!
 
-    This SAS script will import the $DATASET and keep or create
+    This SAS script will import the data from $DATA and keep or create
     variables relevant for analysis for the project $PROJECT.  The script
     will then create a project specific dataset that the analysis SAS and
     R script will analyze.
@@ -55,7 +55,7 @@ run;
     
     */
 %let ds = working;
-%csvgz_import(dataset=$DATASET, outds=&ds);
+%csvgz_import(dataset=./data/$DATA, outds=&ds);
 %contents(dataset=&ds);
 run;
 

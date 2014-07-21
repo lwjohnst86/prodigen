@@ -1,7 +1,7 @@
 /*!
 
     This SAS script was created on $DATE by $AUTHOR.  The file
-    conducts a statistical analysis of dataset $DATASET for the project
+    conducts a statistical analysis of dataset $DATA for the project
     $PROJECT (using the dataset generated from the variables.sas file.
 
     * @author $AUTHOR
@@ -54,7 +54,7 @@ run;
     
     */
 %let ds = dataset;
-%csvgz_import(dataset=$DATASET, outds=&ds);
+%csvgz_import(dataset=./data/$DATA, outds=&ds);
 %contents(dataset=&ds);
 run;
 
