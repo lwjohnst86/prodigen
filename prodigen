@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 ## This script was created July 29, 2013, by Luke Johnston to fulfill
 ## the goal of creating a standardized research project directory tree.
@@ -18,7 +18,8 @@ echo "How you filled out the configuration file (pdg.conf)? yes/no"
 read FILLEDCONF
 
 ## Set when the template files are located
-TEMPLATES=./templates
+SCRIPT=$(readlink -f "$0")
+TEMPLATES=$(dirname $SCRIPT)/templates
 
 ## Check answer to FILLEDCONF and source the CONFIG_FILE
 CONFIG_FILE=./pdg.conf
@@ -50,16 +51,19 @@ else
 fi
 
 ## Create main folders within research project folder
-mkdir -p -v $DIRTREE
+for dir in ${DIRTREE[@]}
+do
+    mkdir -vp $dir
+done
 
 ## Copy dataset to project directory
-cp -p $DATASET ./dataset
+cp -p $DATASET ./data
 
 ## Copy functions and macros to project, chmod to read-only (444).
 ## Only the master files can be edited, with these copies able to be
 ## updated using the makefile (make referesh)
 for i in $FUNCTIONS $MACROS; do
-    cp $i ./scripts/functions
+    cp -fvu $i scripts/functions
 done
 chmod 444 ./scripts/functions/*.{sas,R}
 
@@ -74,17 +78,25 @@ done
 
 for i in variables.sas analysis.sas analysis.R; do
     cp -fvu $TEMPLATES/$i scripts
+done
 
 cp -fvu $TEMPLATES/mindmap.mm lit/mindmap
 
+cat > TODO.md <<EOF
+# A TODO list of tasks to complete, or potential ideas #
+
+EOF
+
 find . -type f -exec  sed -i -e 's/\$PROJECT/'$PROJECT'/g' \
-    -e 's/\${PROJECT}/'$DATASET'/g' \
-    -e 's/\$BIBLIO/'$BIBLIO'/g' \
-    -e 's/\$BIBSTYLE/'$BIBSTYLE'/g' \
-    -e 's/\$DATASET/'$DATASET'/g' \
+    -e 's/\${PROJECT}/'$PROJECT'/g' \
+    -e 's;\$BIBLIO;'$BIBLIO';g' \
+    -e 's;\$BIBSTYLE;'$BIBSTYLE';g' \
+    -e 's;\$DATASET;'$DATASET';g' \
+    -e 's/\$DATA/'$DATA'/g' \
     -e 's/\$DATE/'$DATE'/g' \
-    -e 's/\$AUTHOR/'$AUTHOR'/g' \
-    -e 's/\$MACROS/'"$MACROS"'/g' \
+    -e 's/\$AUTHOR/'"$AUTHOR"'/g' \
+    -e 's;\$MACROS;'$MACROS';g' \
+    -e 's;\$FUNCTIONS;'$FUNCTIONS';g' \
     {} \;
 
 ## Create a PDF of the README file.
@@ -93,6 +105,7 @@ pandoc README.md -V geometry:margin=1in \
     -V fontsize=12pt \
     -o README.pdf
 
+## Output to screen the entire directory structure
 ls -R
 
 ## Initiate a git repository.  Git is a version control system which
@@ -105,7 +118,7 @@ git init
 ## files EOF stands for end of file. The << creates a here-document
 ## that outputs all the text between the two EOF and inputs it into
 ## the > ./filename
-cat > .gitignore << EOF
+cat > .gitignore <<EOF
 ## This file tells git to ignore the following files and folders:
 *~
 .~*
