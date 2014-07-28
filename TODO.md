@@ -9,3 +9,5 @@
   html, for the functions folder, make a doc folder?
 * include the for.sas macro in the template file? 
 * include a STROBE checklist in templates?
+* create in makefile a way to generate .aux file from .md, and jabref
+  to export bib from the .aux file.
