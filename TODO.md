@@ -11,3 +11,5 @@
 * include a STROBE checklist in templates?
 * create in makefile a way to generate .aux file from .md, and jabref
   to export bib from the .aux file.
+* Change mindmap template, move the search terms, scheduling, etc. to
+  another, plain text, file.
