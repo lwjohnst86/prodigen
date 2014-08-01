@@ -89,7 +89,12 @@ done
 cp -fvu $TEMPLATES/mindmap.mm lit/mindmap.mm
 
 cat > TODO.md <<EOF
-# A TODO list of tasks to complete, or potential ideas #
+# TODO #
+
+EOF
+
+cat > ideas.md <<EOF
+# Potential ideas for analysis #
 
 EOF
 
