@@ -55,7 +55,7 @@ run;
     
     */
 %let ds = working;
-%csvgz_import(dataset=./data/$DATA, outds=&ds);
+%csvgz_import(dataset=../data/$DATA, outds=&ds);
 %contents(dataset=&ds);
 run;
 
