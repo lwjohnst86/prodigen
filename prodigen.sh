@@ -17,17 +17,22 @@ read PROJECT
 echo "How you filled out the configuration file (pdg.conf)? yes/no"
 read FILLEDCONF
 
-## Set when the template files are located
+## Set where the template files are located
 SCRIPT=$(readlink -f "$0")
-TEMPLATES=$(dirname $SCRIPT)/templates
+SCRIPTDIR=$(dirname $SCRIPT)
+TEMPLATES=$SCRIPTDIR/templates
+echo $SCRIPT
+echo $SCRIPTDIR
+echo $TEMPLATES
 
 ## Check answer to FILLEDCONF and source the CONFIG_FILE
-CONFIG_FILE=./pdg.conf
+CONFIG_FILE=$SCRIPTDIR/pdg.conf
 
 if [[ $FILLEDCONF = "yes" ]]
 then 
     if [[ -f $CONFIG_FILE ]]
     then
+        echo $CONFIG_FILE
         . $CONFIG_FILE
     fi
 else
@@ -36,7 +41,8 @@ else
 fi
 
 ## Change directory to where your research projects are located
-cd $RESEARCHDIR 
+cd $RESEARCHDIR
+
 
 ## Check to make sure a folder doesn't already exist with the
 ## $PROJECT name
@@ -80,7 +86,7 @@ for i in variables.sas analysis.sas analysis.R; do
     cp -fvu $TEMPLATES/$i scripts
 done
 
-cp -fvu $TEMPLATES/mindmap.mm lit/mindmap
+cp -fvu $TEMPLATES/mindmap.mm lit/mindmap.mm
 
 cat > TODO.md <<EOF
 # A TODO list of tasks to complete, or potential ideas #
