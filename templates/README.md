@@ -9,7 +9,7 @@ This README details how this research directory is structured, how
 files should be run, what the different files do, and what to do if
 the directory is outside of Luke's computer system.
 
-The files created by `prodigen` use the following programs:
+The files created by `prodigen.sh` use the following programs:
 
 * GNU Make (automating executing file scripts)
 * \LaTeX\ (\TeX Live, Mik\TeX, etc.; reproducible manuscript) 
@@ -27,7 +27,7 @@ also need to be installed.
 
 # Directory structure and explanation
 
-The project directory is generally structured with `dataset`,
+The project directory is generally structured with `data`,
 `scripts`, `output`, `lit`, and `report` folders, as well as a version
 control `.git` folder.  As a caveat, there may be folders other than
 the below that were created for an ad hoc purpose.
