@@ -10,7 +10,7 @@
 
 ### Variable Definitions ###
 SHELL:=/bin/sh # Tells make to use shell for shell commands
-VPATH=scripts/functions dataset scripts # Tells make to search these directories for files
+VPATH=scripts/functions data report scripts # Tells make to search these directories for files
 BIBDIR=$BIBLIO
 CSLDIR=$BIBSTYLE
 OBJ = variables.lst analysis.lst analysis.Rout # Object files to be created
@@ -33,7 +33,7 @@ analysis.Rout : analysis.R
 refresh :
 	cp -fvu $FUNCTIONS ./scripts/functions
 	cp -fvu $MACROS ./scripts/functions
-	cp -fvup $DATASET ./dataset
+	cp -fvup $DATASET ./data
 	chmod 444 ./scripts/functions/*
 
 .PHONY : clean # To run this rule, type into the terminal "make clean"
@@ -47,8 +47,15 @@ clean :
 		-delete
 
 # Include a rule for running knitr, and the latex files
-report: manuscript.pdf : manuscript.md
+manuscript.pdf : manuscript.md
 	pandoc manuscript.md \
 		--biblio $(BIBDIR) \
 		--csl $(CSLDIR) \
 		-o manuscript.pdf
+
+README.pdf : README.md
+	pandoc $< \
+		-V geometry:margin=1in \
+		-V mainfont="DejaVu Serif" \
+		-V fontsize=12pt \
+		-o $@
