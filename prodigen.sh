@@ -86,10 +86,10 @@ for i in variables.sas analysis.sas analysis.R; do
     cp -fvu $TEMPLATES/$i scripts
 done
 
-cp -fvu $TEMPLATES/mindmap.mm lit/mindmap.mm
+cp -fvu $TEMPLATES/mindmap.mm lit/mindmap/mindmap.mm
 
-cat > TODO.md <<EOF
-# TODO #
+cat > TODO.org <<EOF
+* Task list
 
 EOF
 
