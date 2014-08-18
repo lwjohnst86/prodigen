@@ -1,4 +1,14 @@
-# Introduction
+---
+title: Introduction
+geometry: margin=1in
+fontsize: 12pt
+papersize: letterpaper
+header-includes:
+    - \input{options.tex}
+
+abstract: |
+
+...
 
 * Date created: $DATE
 * Author: $AUTHOR
