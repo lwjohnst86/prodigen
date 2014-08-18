@@ -10,34 +10,37 @@
 
 ### Variable Definitions ###
 SHELL:=/bin/sh # Tells make to use shell for shell commands
-VPATH=scripts/functions data report scripts # Tells make to search these directories for files
-BIBDIR=$BIBLIO
-CSLDIR=$BIBSTYLE
-OBJ = variables.lst analysis.lst analysis.Rout # Object files to be created
+BIBDIR=/home/luke/Documents/bibliography/bib-db/myrefs.bib
+CSLDIR=/home/luke/csl/vancouver.csl
 
-all : refresh clean $(OBJ)
+all : refresh clean datashape plots analysis report
 
-variables.lst : variables.sas
-	sas $<
+datashape :
+	cd scripts/; sas variables.sas
 
-analysis.lst : analysis.sas
-	sas $< # The "$<" = use the first dependency, in this case analysis.sas
+analysis :
+	cd scripts/; sas analysis.sas # The "$<" = use the first dependency, in this case analysis.sas
 
-analysis.Rout : analysis.R
-	R CMD BATCH $<
+plots :
+	cd scripts/; R CMD BATCH plots.R
 
-# can call other makefiles using "$(MAKE) -C ./report/make"
+# Include a rule for running knitr, and the latex files
+.PHONY : report
+report : 
+	cd ./report ; \
+	pandoc manuscript.md \
+		--biblio $(BIBDIR) \
+		--csl $(CSLDIR) \
+		--highlight-style=tango \
+		-o manuscript.pdf
 
 .PHONY : refresh # To run this rule, type into the terminal "make refresh"
-
 refresh :
-	cp -fvu $FUNCTIONS ./scripts/functions
-	cp -fvu $MACROS ./scripts/functions
-	cp -fvup $DATASET ./data
+	cp -fvu /home/luke/R/functions/functions.R ./scripts/functions
+	cp -fvu /home/luke/SAS/src/*.sas ./scripts/functions
 	chmod 444 ./scripts/functions/*
 
 .PHONY : clean # To run this rule, type into the terminal "make clean"
-
 clean :
 	find output -type f -delete
 	find scripts -type f \( -iname "*.lst" -o \
@@ -46,16 +49,7 @@ clean :
 		-iname "*.out" \) \
 		-delete
 
-# Include a rule for running knitr, and the latex files
-manuscript.pdf : manuscript.md
-	pandoc manuscript.md \
-		--biblio $(BIBDIR) \
-		--csl $(CSLDIR) \
-		-o manuscript.pdf
-
+# Generate README if anything is edited in it
 README.pdf : README.md
-	pandoc $< \
-		-V geometry:margin=1in \
-		-V mainfont="DejaVu Serif" \
-		-V fontsize=12pt \
-		-o $@
+	pandoc $< -o $@
+
