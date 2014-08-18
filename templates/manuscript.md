@@ -7,17 +7,10 @@ geometry: margin=1in
 fontsize: 12pt
 papersize: letterpaper
 header-includes:
-    - \usepackage[bitstream-charter]{mathdesign}
-    - \usepackage{pgfplotstable, booktabs, threeparttable}
-    - \usepackage{bm}
-    - \pgfplotstableset{
-        col sep=comma,
-        every head row/.style={before row=\toprule, after row=\midrule},
-        every last row/.style={after row=\bottomrule},
-        1000 sep={\,}
-        }
+    - \input{options.tex}
 
 abstract: |
+    Abstract goes here
 
 ...
 
@@ -26,6 +19,26 @@ abstract: |
 # Methods
 
 # Results
+
+<!--latexStart-->
+\begin{table}[h]
+  \begin{threeparttable}
+    \caption{}
+    \pgfplotstabletypeset[
+    ]{../output/.csv}
+    \begin{tablenotes}[para, flushleft] 
+
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+<!--latexEnd-->
+
+<!--latexStart-->
+\begin{figure}[h]
+  \caption{}
+
+\end{figure}
+<!--latexEnd-->
 
 # Discussion
 

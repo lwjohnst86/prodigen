@@ -1,0 +1,37 @@
+%% Options for pandoc conversion to pdf
+
+% Packages
+\usepackage[bitstream-charter]{mathdesign}
+\usepackage{pgfplotstable}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{bm}
+%\usepackage{caption}
+
+% Custom commands
+
+% pgfplotstable settings
+\pgfplotsset{compat=1.10}
+\pgfplotstableset{
+  col sep=comma, 
+  header=true,
+  every head row/.style={
+    before row=\toprule, 
+    after row=\midrule
+  },
+  every last row/.style={
+    after row=\bottomrule
+  },
+  1000 sep={\,},
+  string type,
+  every first column/.style={
+    column type=l
+  },
+  hl row col/.style 2 args={
+    every row #1 column #2/.style={
+      postproc cell content/.style={
+        @cell content=\textbf{####1}
+      }
+    }
+  }
+}
