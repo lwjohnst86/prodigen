@@ -1,4 +1,4 @@
-TASK LIST
+* TASK LIST
 
 *** TODO Update project readme, rename to "projREADME.md"
 *** TODO Include DocItOut/Roxygen/knitr or something 
@@ -13,21 +13,33 @@ TASK LIST
 *** TODO include a STROBE checklist in templates?
 *** TODO create in makefile a way to generate .aux file from .md, and jabref
     To export bib from the .aux file.
-*** TODO Change mindmap template, move the search terms, scheduling, etc. 
+*** DONE Change mindmap template, move the search terms, scheduling, etc. 
+    CLOSED: [2014-08-15 Fri 21:16]
     Move to another, plain text, file.
-*** TODO Include code to create `output` directory if not created 
+*** DONE Include code to create `output` directory if not created 
+    CLOSED: [2014-08-15 Fri 22:07]
     For instance, in .sas and .R files, update README to reflect that.
-*** TODO Remove importing the master PROMISE file into the directory tree.
+*** DONE Remove importing the master PROMISE file into the directory tree.
+    CLOSED: [2014-08-15 Fri 23:18]
     Change to only be a link to the PROMISE file in the `variables.sas`
     file.  This will prevent an excessive number of duplicate PROMISE
     datasets in my computer, but also allow me, if need to be easily
     send the directory to someone else without having to delete the
     dataset.
-*** TODO Include the common packages and subsetting the dataset in R file
-*** TODO Include the ggplot2 theme setting for the plots in the R script
-*** TODO Include a clear session on the bottom of the R script.
-*** TODO Change import dataset in the analysis.sas file 
+*** DONE Include the common packages and subsetting the dataset in R file
+    CLOSED: [2014-08-15 Fri 22:35]
+*** DONE Include the ggplot2 theme setting for the plots in the R script
+    CLOSED: [2014-08-15 Fri 22:36]
+*** DONE Include a clear session on the bottom of the R script.
+    CLOSED: [2014-08-15 Fri 22:36]
+*** DONE Change import dataset in the analysis.sas file 
+    CLOSED: [2014-08-15 Fri 22:38]
     (it is set to the master dataset file right now)
-*** TODO Include table shells in md file
-*** TODO Include YAML in README file.
-*** TODO Update Makefile based on renalProg makefile
+*** DONE Include table shells in md file
+    CLOSED: [2014-08-15 Fri 22:45]
+*** DONE Include YAML in README file.
+    CLOSED: [2014-08-15 Fri 22:57]
+*** DONE Update Makefile based on renalProg makefile
+    CLOSED: [2014-08-15 Fri 23:17]
+*** TODO Fix documentation/comments of variables.sas
+*** TODO Include options.tex and searchStrategy in prodigen script
