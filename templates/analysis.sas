@@ -78,6 +78,19 @@ run;
     %let m3_c = &m2_c;
     %let m3_d = &m2_d;
 
-/**************************************************/
+run;
 
-/* Statistical tests */
+**************************************************;
+
+/**
+
+    Create an output directory if none exists for the output data
+
+    */
+x "if [ ! -d ../output ] ; then mkdir ../output; fi";
+
+/**
+
+    Statistical tests
+
+    */

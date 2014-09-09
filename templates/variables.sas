@@ -77,7 +77,8 @@ run;
 /**
 
     Export the project specific dataset into csv.  Compress the new
-    dataset and change to read-only. Requires Unix OS.
+    dataset and change to read-only.  Create a data directory if none
+    exists.  Requires Unix OS.
     
     */
 x "if [ ! -d ../data ] ; then mkdir ../data; fi";
