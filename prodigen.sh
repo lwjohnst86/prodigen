@@ -43,7 +43,6 @@ fi
 ## Change directory to where your research projects are located
 cd $RESEARCHDIR
 
-
 ## Check to make sure a folder doesn't already exist with the
 ## $PROJECT name
 if [[ -d $PROJECT ]]
@@ -62,9 +61,6 @@ do
     mkdir -vp $dir
 done
 
-## Copy dataset to project directory
-cp -p $DATASET ./data
-
 ## Copy functions and macros to project, chmod to read-only (444).
 ## Only the master files can be edited, with these copies able to be
 ## updated using the makefile (make referesh)
@@ -78,11 +74,11 @@ for i in README.md Makefile; do
     cp -fvu $TEMPLATES/$i .
 done
 
-for i in manuscript.md; do
+for i in manuscript.md options.tex; do
     cp -fvu $TEMPLATES/$i report
 done
 
-for i in variables.sas analysis.sas analysis.R; do
+for i in variables.sas analysis.sas plots.R; do
     cp -fvu $TEMPLATES/$i scripts
 done
 
