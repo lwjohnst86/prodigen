@@ -1,17 +1,15 @@
 ---
 title: Introduction
+author: $AUTHOR
+date: $DATE
 geometry: margin=1in
 fontsize: 12pt
 papersize: letterpaper
-header-includes:
-    - \input{options.tex}
 
 abstract: |
 
 ...
 
-* Date created: $DATE
-* Author: $AUTHOR
 * Project title: $PROJECT
 * Data used: $DATA.
 
