@@ -111,10 +111,7 @@ find . -type f -exec  sed -i -e 's/\$PROJECT/'$PROJECT'/g' \
     {} \;
 
 ## Create a PDF of the README file.
-pandoc README.md -V geometry:margin=1in \
-    -V mainfont="DejaVu Serif" \
-    -V fontsize=12pt \
-    -o README.pdf
+pandoc README.md -o README.pdf
 
 ## Output to screen the entire directory structure
 ls -R
