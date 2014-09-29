@@ -1,5 +1,22 @@
 * TASK list for `prodigen`
 
+** TODO Replace the copy of the functions.R with rstatsToolkit.
+   :PROPERTIES:
+   :ID:       a59fc768-a2ea-452a-94f0-8afe88981fa7
+   :END:
+
+** TODO Hardcode a sasauto call + git checkout to the approp tag/branch
+   :PROPERTIES:
+   :ID:       41ccd594-1acc-49d6-b5d6-0097c0c334e3
+   :END:
+   I would like to not have the sas macros and R functions in the
+   directory. While it is modular, it takes up space + I need to
+   refresh when I edit. Sooo if I add a git checkout to a specified
+   tag, then if anyone wants to check if my code works, they can go
+   to my website, use the tag which I had the macros in, and run the
+   code based on the that tag. It is still modular, but less space
+   and complexity involved (IMO).
+
 ** TODO Include sendToOrgDir into prodigen
    :PROPERTIES:
    :ID:       4a89cf5a-b48c-4e25-8f5e-74c305443bb2
