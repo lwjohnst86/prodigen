@@ -64,10 +64,12 @@ done
 ## Copy functions and macros to project, chmod to read-only (444).
 ## Only the master files can be edited, with these copies able to be
 ## updated using the makefile (make referesh)
-for i in $FUNCTIONS $MACROS; do
-    cp -fvu $i scripts/functions
-done
-chmod 444 ./scripts/functions/*.{sas,R}
+if [ ! -z "$FUNCTIONS" ]; then
+    for i in $FUNCTIONS $MACROS; do
+        cp -fvu $i scripts/functions
+    done
+fi
+    chmod 444 ./scripts/functions/*.{sas}
 
 ## Copy the template files from the `Template` folder to the project
 for i in README.md Makefile; do 
@@ -103,6 +105,8 @@ find . -type f -exec  sed -i -e 's/\$PROJECT/'$PROJECT'/g' \
     -e 's/\$DATE/'$DATE'/g' \
     -e 's/\$AUTHOR/'"$AUTHOR"'/g' \
     -e 's;\$MACROS;'$MACROS';g' \
+    -e 's;\$GITHUBUSER;'$GITHUBUSER';g' \
+    -e 's;\$GITHUBRPKG;'$GITHUBRPKG';g' \
     -e 's;\$FUNCTIONS;'$FUNCTIONS';g' \
     {} \;
 
