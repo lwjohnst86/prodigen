@@ -6,6 +6,8 @@ tags: []
 geometry: margin=1in
 fontsize: 12pt
 papersize: letterpaper
+csl: $BIBSTYLE
+bibliography: $BIBLIO
 header-includes:
     - \input{options.tex}
 
