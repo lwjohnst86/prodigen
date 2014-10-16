@@ -104,9 +104,11 @@ find . -type f -exec  sed -i -e 's/\$PROJECT/'$PROJECT'/g' \
     -e 's/\$DATA/'$DATA'/g' \
     -e 's/\$DATE/'$DATE'/g' \
     -e 's/\$AUTHOR/'"$AUTHOR"'/g' \
+    -e 's;\$MACROSHOME;'$MACROSHOME';g' \
     -e 's;\$MACROS;'$MACROS';g' \
     -e 's;\$GITHUBUSER;'$GITHUBUSER';g' \
     -e 's;\$GITHUBRPKG;'$GITHUBRPKG';g' \
+    -e 's;\$GITHUBSASPKG;'$GITHUBSASPKG';g' \
     -e 's;\$FUNCTIONS;'$FUNCTIONS';g' \
     {} \;
 
