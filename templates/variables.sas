@@ -13,20 +13,20 @@ run;
 
 /**
 
-    The for.sas macro allows looping through repetitive chunks of code
-    in so-called "open code" by sas (as in, while in a datastep).  This is
-    a read-only file, as it should not need to be edited. 
-
+    Set up the SAS autocall command to be able to find and run macros
+    stored in the personal SAS autocall library.  The macros used in this
+    analysis can be found at github.com/$GITHUBUSER/$GITHUBSASPKG
+    
     */
-%inc './functions/For.sas';
-run;
+filename macrolib '~/SAS/src/';
+options mautosource sasautos=(sasautos macrolib);
 
 /**
 
     File that contains all user-defined macros.  This is a read-only
     file; the original is found in ~/SAS/src/macros.  If the file needs
     updating, using run `make refresh` in the parent directory of this
-    project (i.e. epaDiabetes/).  The master file should be in a different
+    project (i.e. $PROJECT/).  The master file should be in a different
     location, updating the copy using the makefile (`make refresh`)
     whenever the master file is changed.  For this project, the master
     $MACROS file is
@@ -42,8 +42,8 @@ run;
     */
 options nodate nonumber nocenter formdlim="" nolabel;
 filename suppress dummy; * Suppress output;
-filename temp temp; * Outputting results using user macros;
 title; * Remove title from each page of output;
+*options nosource nonotes; *Reduce output to log;
 *options macrogen mlogic mprintnest symbolgen; * For debugging;
 run;
 
@@ -57,7 +57,7 @@ run;
 %let ds = working;
 %csvgz_import(dataset=$DATASET,
     outds=&ds, dir=../data);
-%contents(dataset=&ds);
+%contents(&ds);
 run;
 
 /**
@@ -72,7 +72,7 @@ data &ds;
         (keep=);
 run;
 
-%contents(dataset=&ds);
+%contents(&ds);
 
 /**
 
