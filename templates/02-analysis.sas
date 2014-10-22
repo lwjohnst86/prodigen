@@ -1,5 +1,8 @@
 /*!
 
+    SAS Statistical Analysis Script
+    ===============================
+
     The file conducts a statistical analysis of dataset $DATA for the
     project $PROJECT (using the dataset generated from the variables.sas
     file).
@@ -11,6 +14,9 @@
 run;
 
 /**
+
+    SAS Options
+    ===========
 
     Set up the SAS autocall command to be able to find and run macros
     stored in the personal SAS autocall library.  The macros used in this
@@ -41,7 +47,8 @@ run;
     */
 options nodate nonumber nocenter formdlim="" nolabel;
 filename suppress dummy; * Suppress output;
-title; * Remove title from each page of output;
+title ''; * Remove title from each page of output;
+footnote '';
 *options nosource nonotes; *Reduce output to log;
 *options macrogen mlogic mprintnest symbolgen; * For debugging;
 run;
@@ -50,6 +57,9 @@ run;
 
 
 /**
+
+    Macro Variables
+    ===============
 
     Setting custom macro variables for analyses.
 
@@ -76,6 +86,9 @@ run;
 
 /*
 
+    Importing the Dataset
+    =====================
+    
     The following command unzips the compressed dataset to use in sas. 
     
     */
@@ -89,6 +102,7 @@ run;
 
 /**
 
-    Statistical analysis code.
-
+    Statistical Analysis
+    ====================
+    
     */
