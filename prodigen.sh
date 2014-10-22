@@ -18,15 +18,32 @@ echo "How you filled out the configuration file (pdg.conf)? yes/no"
 read FILLEDCONF
 
 ## Set where the template files are located
-SCRIPT=$(readlink -f "$0")
-SCRIPTDIR=$(dirname $SCRIPT)
-TEMPLATES=$SCRIPTDIR/templates
-echo $SCRIPT
-echo $SCRIPTDIR
-echo $TEMPLATES
+APP=$(readlink -f "$0")
+APPDIR=$(dirname $APP)
+TEMPLATES=$APPDIR/templates
+echo -e "$APP\n$APPDIR\n$TEMPLATES"
+
+## Set a shell variable with all of the template files and their
+## copied location (for example, the manuscript.md file in the .
+REP_DIR=./report
+SRC_DIR=./scripts
+LIT_DIR=./lit
+MM_DIR=$LIT_DIR/mindmap
+
+TMPLT_FILES="
+    ./README.md 
+    ./Makefile 
+    $REP_DIR/manuscript.md 
+    $SRC_DIR/*.sas 
+    $SRC_DIR/*.R 
+    $REP_DIR/options.tex 
+    $LIT_DIR/searchStrategy+Issues.md 
+    $MM_DIR/mindmap.mm
+"
+
 
 ## Check answer to FILLEDCONF and source the CONFIG_FILE
-CONFIG_FILE=$SCRIPTDIR/pdg.conf
+CONFIG_FILE=$APPDIR/pdg.conf
 
 if [[ $FILLEDCONF = "yes" ]]
 then 
@@ -40,20 +57,23 @@ else
     exit 1 # Exit with a failure
 fi
 
-## Change directory to where your research projects are located
-cd $RESEARCHDIR
+## Set the project base directory
+PROJ_BASE_DIR=$RESEARCHDIR/$PROJECT
 
 ## Check to make sure a folder doesn't already exist with the
 ## $PROJECT name
-if [[ -d $PROJECT ]]
+
+if [[ -d $PROJ_BASE_DIR ]]
 then
     echo "Error: Folder already exists."
     exit 1 ## Causes script to exit with a failure
 else
-    mkdir -v $PROJECT && cd ./"$_"
+    mkdir -v $PROJECT
     ## The "$_" = using the first argument of the previous command
-    pwd
+    #pwd
 fi
+
+exit 1
 
 ## Create main folders within research project folder
 for dir in ${DIRTREE[@]}
@@ -72,6 +92,11 @@ fi
     chmod 444 ./scripts/functions/*.{sas}
 
 ## Copy the template files from the `Template` folder to the project
+for file in $TMPLT_FILES
+do
+    cp -fvu $TEMPLATES/$(basename $file) $file
+done
+
 for i in README.md Makefile; do 
     cp -fvu $TEMPLATES/$i .
 done
