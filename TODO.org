@@ -1,11 +1,27 @@
 * TASK list for `prodigen`
 
-** TODO Replace the copy of the functions.R with rstatsToolkit.
+** DONE Put the biblio and csl into the md file (or a hidden header)
+   CLOSED: [2014-10-10 Fri 14:38] SCHEDULED: <2014-10-10 Fri>
+   :PROPERTIES:
+   :ID:       9556bc8a-1f8b-43e4-944a-ea9304fac59b
+   :END:
+
+** DONE Use numbers in the scripts file to indicate order that it is run
+   CLOSED: [2014-10-17 Fri 11:38] SCHEDULED: <2014-10-16 Thu>
+   :PROPERTIES:
+   :ID:       3d36e808-2bb2-4e85-b212-d22a72261942
+   :END:
+   This helps with the Makefile. Compare to swcarpentry/bc Makefile
+   for an example.
+
+** DONE Replace the copy of the functions.R with rstatsToolkit.
+   CLOSED: [2014-10-10 Fri 14:37] SCHEDULED: <2014-10-09 Thu>
    :PROPERTIES:
    :ID:       a59fc768-a2ea-452a-94f0-8afe88981fa7
    :END:
 
 ** TODO Hardcode a sasauto call + git checkout to the approp tag/branch
+   SCHEDULED: <2014-10-30 Thu>
    :PROPERTIES:
    :ID:       41ccd594-1acc-49d6-b5d6-0097c0c334e3
    :END:
@@ -17,63 +33,61 @@
    code based on the that tag. It is still modular, but less space
    and complexity involved (IMO).
 
-** TODO Include sendToOrgDir into prodigen
-   :PROPERTIES:
-   :ID:       4a89cf5a-b48c-4e25-8f5e-74c305443bb2
-   :END:
-
-** TODO Update project readme, rename to "projREADME.md"
-   :PROPERTIES:
-   :ID:       3da2288b-b403-454a-9457-d97fbd7f8e78
-   :END:
-** TODO Include DocItOut/Roxygen/knitr or something
+** TODO Include StatRep package for SAS and knitr::spin for R for documenting.
+   SCHEDULED: <2014-10-25 Sat>
    :PROPERTIES:
    :ID:       c0486759-0f9f-4633-9726-9f00ac60423a
    :END: 
    To make the macros more documentable and to make the scripts
-   better and more descriptive.
+   better and more descriptive. Have a documentation folder, one html
+   and one pdf?
+
 ** TODO Include scripts that can print off the version of each program used
+   SCHEDULED: <2014-10-30 Thu>
    :PROPERTIES:
    :ID:       11f2c8a4-5b8e-4423-ad23-fbcc3a48a3a3
    :END:
    - (e.g. R, SAS, LaTeX, etc.)
    - Also include in the makefile a rule to update version numbers in documentation
-** TODO Include a script that will generate documentations of the macros,
-   :PROPERTIES:
-   :ID:       3759fee2-c385-43e2-8a37-e0f2ce98d89f
-   :END: 
-   For instance, in html, for the functions folder, make a doc
-   folder?
-** TODO include the for.sas macro in the template file?
-   :PROPERTIES:
-   :ID:       439f16ca-03bd-4b67-aca4-2ecdf2780826
-   :END: 
+
 ** TODO include a STROBE checklist in templates?
+   SCHEDULED: <2014-10-30 Thu>
    :PROPERTIES:
    :ID:       ea8667e7-203f-4891-8745-50505a3136c2
    :END:
+
 ** TODO create in makefile a way to generate .aux file from .md, and jabref
+   SCHEDULED: <2014-11-10 Mon>
    :PROPERTIES:
    :ID:       0ea6a0a2-925a-4321-b805-ed9537697506
    :END:
    To export bib from the .aux file.
-** TODO Fix documentation/comments of variables.sas
+
+** DONE Fix documentation/comments of variables.sas
+   CLOSED: [2014-10-21 Tue 22:52] SCHEDULED: <2014-10-20 Mon>
    :PROPERTIES:
    :ID:       d16d4c62-f33b-4953-864a-2e48a5f3f91e
    :END:
-** TODO Include options.tex and searchStrategy in prodigen script
+
+** DONE Include options.tex and searchStrategy in prodigen script
+   CLOSED: [2014-10-21 Tue 22:51] SCHEDULED: <2014-10-20 Mon>
    :PROPERTIES:
    :ID:       a84efd82-77c6-46fa-a8a2-02c42476258c
    :END:
-** TODO Include a shell script to make output dir in analysis.sas file
+
+** DONE Include a shell script to make output dir in analysis.sas file
+   CLOSED: [2014-10-02 Thu 12:32]
    :PROPERTIES:
    :ID:       f7c80e30-45c5-49e3-8ca3-4a160749036a
    :END:
-** TODO Include exception in gitignore for options.tex in report dir
+
+** DONE Include exception in gitignore for options.tex in report dir
+   CLOSED: [2014-10-02 Thu 12:32]
    :PROPERTIES:
    :ID:       46856836-d911-40c6-8442-b75c2d9e1700
    :END:
 ** DONE Change mindmap template, move the search terms, scheduling, etc. 
+
    CLOSED: [2014-08-15 Fri 21:16]
    Move to another, plain text, file.
 ** DONE Include code to create `output` directory if not created 
@@ -101,7 +115,8 @@
    CLOSED: [2014-08-15 Fri 22:57]
 ** DONE Update Makefile based on renalProg makefile
    CLOSED: [2014-08-15 Fri 23:17]
-** TODO Add project information for the TODO list (for the org-mode todo global)
+** DONE Add project information for the TODO list (for the org-mode todo global)
+   CLOSED: [2014-10-21 Tue 22:52]
    :PROPERTIES:
    :ID:       0a8ddee7-d267-4c22-a05a-9bf0558225db
    :END:
