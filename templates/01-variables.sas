@@ -1,5 +1,8 @@
 /*!
 
+    SAS Data Processing Script
+    ==========================
+
     This SAS script will import the data from $DATA and keep or create
     variables relevant for analysis for the project $PROJECT.  The script
     will then create a project specific dataset that the analysis SAS and
@@ -13,23 +16,25 @@ run;
 
 /**
 
-    The for.sas macro allows looping through repetitive chunks of code
-    in so-called "open code" by sas (as in, while in a datastep).  This is
-    a read-only file, as it should not need to be edited. 
+    SAS Options
+    ===========
 
+    Set up the SAS autocall command to be able to find and run macros
+    stored in the personal SAS autocall library.  The macros used in this
+    analysis can be found at github.com/$GITHUBUSER/$GITHUBSASPKG
+    
     */
-%inc './functions/For.sas';
-run;
+filename macrolib '$MACROSHOME';
+options mautosource sasautos=(sasautos macrolib);
 
 /**
 
     File that contains all user-defined macros.  This is a read-only
-    file; the original is found in ~/SAS/src/macros.  If the file needs
+    file; the original is found in $MACROSHOME.  If the file needs
     updating, using run `make refresh` in the parent directory of this
-    project (i.e. epaDiabetes/).  The master file should be in a different
+    project (i.e. $PROJECT/).  The master file should be in a different
     location, updating the copy using the makefile (`make refresh`)
-    whenever the master file is changed.  For this project, the master
-    $MACROS file is
+    whenever the master file is changed. 
 
     */
 %inc './functions/macros.sas';
@@ -42,14 +47,18 @@ run;
     */
 options nodate nonumber nocenter formdlim="" nolabel;
 filename suppress dummy; * Suppress output;
-filename temp temp; * Outputting results using user macros;
-title; * Remove title from each page of output;
+title ''; * Remove title from each page of output;
+footnote '';
+*options nosource nonotes; *Reduce output to log;
 *options macrogen mlogic mprintnest symbolgen; * For debugging;
 run;
 
-/**************************************************/
+**************************************************;
 
-/*
+/**
+
+    Importing and Processing the Data
+    =================================
 
     The following command unzips the compressed dataset to use in sas. 
     
@@ -57,7 +66,7 @@ run;
 %let ds = working;
 %csvgz_import(dataset=$DATASET,
     outds=&ds, dir=../data);
-%contents(dataset=&ds);
+%contents(&ds);
 run;
 
 /**
@@ -72,9 +81,12 @@ data &ds;
         (keep=);
 run;
 
-%contents(dataset=&ds);
+%contents(&ds);
 
 /**
+
+    Exporting the New Dataset
+    =========================
 
     Export the project specific dataset into csv.  Compress the new
     dataset and change to read-only.  Create a data directory if none

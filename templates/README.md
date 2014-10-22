@@ -6,12 +6,10 @@ geometry: margin=1in
 fontsize: 12pt
 papersize: letterpaper
 
-abstract: |
-
-...
+---
 
 * Project title: $PROJECT
-* Data used: $DATA.
+* Data used: $DATA
 
 This README details how this research directory is structured, how
 files should be run, what the different files do, and what to do if
