@@ -45,7 +45,6 @@ SRC_DIR=$PROJ_BASE_DIR/scripts
 FUN_DIR=$SRC_DIR/functions
 LIT_DIR=$PROJ_BASE_DIR/lit
 MM_DIR=$LIT_DIR/mindmap
-GIT_DIR=$PROJ_BASE_DIR/.git
 
 TMPLT_FILES="
     $PROJ_BASE_DIR/README.md 
@@ -128,7 +127,7 @@ ls -R $PROJ_BASE_DIR
 ## allows tracking of changes made to the files and allows you to go
 ## back to previous versions of a file.  This is a very powerful and
 ## useful software for documenting what you did and why!
-git --git-dir=$GIT_DIR init
+git -C $PROJ_BASE_DIR init
 
 ## Create a file to tell git to ignore version controlling the given
 ## files EOF stands for end of file. The << creates a here-document
@@ -146,8 +145,7 @@ output/
 EOF
 
 ## Add the files to be tracked by git
-git --git-dir=$GIT_DIR --work-tree=$PROJ_BASE_DIR add .
+git -C $PROJ_BASE_DIR add .
 
 ## Commit the first version
-git --git-dir=$GIT_DIR --work-tree=$PROJ_BASE_DIR \
-    commit -m "Project's first version commit."
+git -C $PROJ_BASE_DIR commit -m "Project's first version commit."
