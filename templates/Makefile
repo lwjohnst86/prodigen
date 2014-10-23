@@ -32,7 +32,7 @@ REP_OPT = $(REP_DIR)/options.tex
 # Functions and macros location and files
 MAIN_FUNCTIONS = \
 	$FUNCTIONS \
-	$MACROSHOME/$MACROS
+	$MACROS
 
 # Data processing or analyses using SAS
 SAS_SCRIPTS = \
@@ -101,9 +101,9 @@ report : $(REP_OUT)
 ## 		master file location.
 refresh :
 	for file in $(MAIN_FUNCTIONS) ; do \
-		cp -fvu $$file $(PROJ_FUN_DIR)/$(shell basename $$file); \
+		cp -fvu $$file $(PROJ_FUN_DIR)/; \
 	done
-	chmod 444 $PROJ_FUN_DIR)/*
+	chmod 444 $(PROJ_FUN_DIR)/*
 
 ## clean	: Delete all extraneous / unnecessary files.
 clean :
