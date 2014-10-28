@@ -27,18 +27,7 @@ run;
 filename macrolib '$MACROSHOME';
 options mautosource sasautos=(sasautos macrolib);
 
-/**
-
-    File that contains all user-defined macros.  This is a read-only
-    file; the original is found in $MACROSHOME.  If the file needs
-    updating, using run `make refresh` in the parent directory of this
-    project (i.e. $PROJECT/).  The master file should be in a different
-    location, updating the copy using the makefile (`make refresh`)
-    whenever the master file is changed. 
-
-    */
-%inc './functions/macros.sas';
-run;
+includeMacroFile
 
 /**
 
