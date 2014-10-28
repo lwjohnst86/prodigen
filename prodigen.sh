@@ -99,6 +99,21 @@ cat > $PROJ_BASE_DIR/ideas.md <<EOF
 
 EOF
 
+## If the MACRO variable is empty, don't insert the file
+## `includeMacroFile.sas` into both analysis.sas and variables.sas
+## files.  If the MACRO variable is not empty, then insert the file so
+## that the macros get loaded into the SAS file.
+if [ -n "$MACROS" ]; then
+    for file in $SRC_DIR/*.sas; do
+        (cd $TEMPLATES && \
+        sed -i -e '/includeMacroFile/ {r includeMacroFile.sas' -e 'd;}' $file)
+    done
+elif [ -z "$MACROS" ]; then
+    for file in $SRC_DIR/*.sas; do
+        sed -i -e 's/includeMacroFile//' $file
+    done
+fi
+
 ## Change variable names throughout files to their proper names, as
 ## determined in the pdf.conf file
 find $PROJ_BASE_DIR -type f -exec  sed -i -e 's/\$PROJECT/'$PROJECT'/g' \
@@ -149,3 +164,4 @@ git -C $PROJ_BASE_DIR add .
 
 ## Commit the first version
 git -C $PROJ_BASE_DIR commit -m "Project's first version commit."
+
