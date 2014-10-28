@@ -81,31 +81,31 @@ $(REP_OUT) : $(REP_IN)
 # Targets and commands
 
 ##-------------------------------------------------------------------
-## commands	: Show all commands in Makefile
+## commands   : Show all commands in Makefile
 commands :
 	@grep -E '^##' Makefile | sed -e 's/##//g'
 
 ##-------------------------------------------------------------------
 
-## final 	: Run all Make targets, creating the final manuscript file.
+## final      : Run all Make targets, creating the final manuscript file.
 final : readme clean refresh analysis report
 
-## analysis	: Run all statistical programs to output results.
+## analysis   : Run all statistical programs to output results.
 analysis : $(SAS_OUT) $(R_OUT)
 
-## report	: Create the manuscript in its final format.
+## report     : Create the manuscript in its final format.
 # Include a rule for running knitr, and the latex files
 report : $(REP_OUT)
 
-## refresh	: Update the functions in the local project folder from the
-## 		master file location.
+## refresh    : Update the functions in the local project folder from the
+##              master file location.
 refresh :
 	for file in $(MAIN_FUNCTIONS) ; do \
 		cp -fvu $$file $(PROJ_FUN_DIR)/; \
 	done
 	chmod 444 $(PROJ_FUN_DIR)/*
 
-## clean	: Delete all extraneous / unnecessary files.
+## clean      : Delete all extraneous / unnecessary files.
 clean :
 	find output -type f -delete
 	find scripts -type f \( -iname "*.lst" -o \
@@ -114,7 +114,7 @@ clean :
 		-iname "*.out" \) \
 		-delete
 
-## readme	: Only need to run if you have edited the README file.
+## readme     : Only need to run if you have edited the README file.
 readme : 
 	sed -i 's/-+-/-|-/g' README.md
 	pandoc README.md --highlight-style tango -o README.pdf
