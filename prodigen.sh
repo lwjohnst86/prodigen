@@ -3,13 +3,8 @@
 ## This script was created July 29, 2013, by Luke Johnston to fulfill
 ## the goal of creating a standardized research project directory tree.
 
-## This script is to be used on the command-line by changing the
-## directory to the current folder ("cd ~/Documents/research-project")
-## and typing "sh createprojdir").  A prompt will ask for a project
-## name (without spaces) and for the dataset name (a file located in
-## ~/Documents/datasets ending in "_data.csv". At the prompt enter the
-## dataset name without the _data.csv ending, i.e. type PROMISE for the
-## PROMISE_data.csv file).
+## This script is to be used on the command-line.  A prompt will ask
+## for a project name (without spaces).
 
 ## Variables to be read into from user input
 echo "Please enter a meaningful and short project name, without spaces:"
@@ -39,24 +34,8 @@ fi
 PROJ_BASE_DIR=$RESEARCHDIR/$PROJECT
 
 ## Set a shell variable with all of the template files and their
-## copied location (for example, the manuscript.md file in the .
-REP_DIR=$PROJ_BASE_DIR/report
+## copied location, for example, the manuscript.md file in the .
 SRC_DIR=$PROJ_BASE_DIR/scripts
-FUN_DIR=$SRC_DIR/functions
-LIT_DIR=$PROJ_BASE_DIR/lit
-MM_DIR=$LIT_DIR/mindmap
-
-TMPLT_FILES="
-    $PROJ_BASE_DIR/README.md 
-    $PROJ_BASE_DIR/Makefile 
-    $REP_DIR/manuscript.md 
-    $SRC_DIR/01-variables.sas 
-    $SRC_DIR/02-analysis.sas 
-    $SRC_DIR/03-plots.R 
-    $REP_DIR/options.tex 
-    $LIT_DIR/searchStrategy+Issues.md 
-    $MM_DIR/mindmap.mm
-"
 
 ## Check to make sure a folder doesn't already exist with the
 ## $PROJECT name
@@ -69,50 +48,16 @@ else
 fi
 
 ## Create main folders within research project folder
-for dir in ${DIRTREE[@]}; do
-    mkdir -vp $PROJ_BASE_DIR/$dir
-done
-
-## Copy functions and macros to project, chmod to read-only (444).
-## Only the master files can be edited, with these copies able to be
-## updated using the makefile (make referesh)
-if [ -n "$FUNCTIONS" -o -n "$MACROS" ]; then
-    for func in $FUNCTIONS $MACROS; do
-        cp -fvu $func $FUN_DIR/$(basename $func)
-    done
-fi
-chmod 444 $FUN_DIR/*
-
-## Copy the template files from the `Template` folder to the project
-for file in $TMPLT_FILES; do
-    cp -fvu $TEMPLATES/$(basename $file) $file
-done
-
-## Create TODO and ideas.md files
-cat > $PROJ_BASE_DIR/TODO.org <<EOF
-* Task list
-
-EOF
-
-cat > $PROJ_BASE_DIR/ideas.md <<EOF
-# Potential ideas for analysis #
-
-EOF
+cp -rv $TEMPLATES/* $PROJ_BASE_DIR/
 
 ## If the MACRO variable is empty, don't insert the file
 ## `includeMacroFile.sas` into both analysis.sas and variables.sas
 ## files.  If the MACRO variable is not empty, then insert the file so
-## that the macros get loaded into the SAS file.
+## that the macros get loaded into the SAS file.  Then delete the file.
 if [ -n "$MACROS" ]; then
-    for file in $SRC_DIR/*.sas; do
-        (cd $TEMPLATES && \
-        sed -i -e '/includeMacroFile/ {r includeMacroFile.sas' -e 'd;}' $file)
-    done
-elif [ -z "$MACROS" ]; then
-    for file in $SRC_DIR/*.sas; do
-        sed -i -e 's/includeMacroFile//' $file
-    done
+    echo $SRC_DIR/includeMacroFile.sas >> $SRC_DIR/options.sas
 fi
+find $SRC_DIR -name includeMacroFile.sas -delete
 
 ## Change variable names throughout files to their proper names, as
 ## determined in the pdf.conf file
@@ -165,3 +110,5 @@ git -C $PROJ_BASE_DIR add .
 ## Commit the first version
 git -C $PROJ_BASE_DIR commit -m "Project's first version commit."
 
+## Remove any unnecessary files with '~' ending
+find $PROJ_BASE_DIR -type f -iname '*~' -delete

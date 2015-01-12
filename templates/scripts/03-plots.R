@@ -19,23 +19,8 @@
 ##' This code clears the session, just in case.
 rm(list=ls())
 
-##' Create an output and fig directory, if none exists.
-dir.create("../output/")
-dir.create("../output/figs/")
-
-##' Source personal functions, or install (or update) custom functions
-##' in a package (to install from github, needs devtools)
-##source("functions/functions.R")
-library(devtools)
-install_github("$GITHUBUSER/$GITHUBRPKG")
-library($GITHUBRPKG)
-
-##' Load relevant libraries
-library(ggplot2)
-library(grid, gridExtra)
-library(plyr)
-library(reshape2)
-library(knitr)
+##' Include the options files into the R session.
+source(options.R)
 
 ##' Load in the dataset
 ds <- read.table("../data/${PROJECT}_data.csv.gz", 

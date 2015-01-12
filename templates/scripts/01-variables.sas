@@ -12,33 +12,8 @@
     * @created $DATE
     
     */
-run;
-
-/**
-
-    SAS Options
-    ===========
-
-    Set up the SAS autocall command to be able to find and run macros
-    stored in the personal SAS autocall library.  The macros used in this
-    analysis can be found at github.com/$GITHUBUSER/$GITHUBSASPKG
-    
-    */
-filename macrolib '$MACROSHOME';
-options mautosource sasautos=(sasautos macrolib);
-
-includeMacroFile
-
-/**
-
-    Set various options for SAS.
-
-    */
-options nodate nonumber nocenter formdlim="" nolabel;
-filename suppress dummy; * Suppress output;
-title ''; * Remove title from each page of output;
-footnote '';
-*options nosource nonotes; *Reduce output to log;
+%inc 'options.sas';
+options nosource nonotes; *Reduce output to log;
 *options macrogen mlogic mprintnest symbolgen; * For debugging;
 run;
 
@@ -60,15 +35,38 @@ run;
 
 /**
 
+    Pre-processing
+    --------------
+
     Keep and create variables from the original dataset that will be
     output to another dataset used by the analysis scripts.
     
+    */
+
+/**
+
+    Processing the data
+    -------------------
+
+    Wrangle and keep old variables, create new variables.
+
     */
 data &ds;
         * Keep relevant variables;
     set &ds
         (keep=);
 run;
+
+/**
+
+    Post-processing
+    ---------------
+    
+    Various commands to process the data after importing into
+    SAS.  Typically this might include standardizing, creating tertiles or
+    quartiles, etc.
+
+    */
 
 %contents(&ds);
 
@@ -91,3 +89,5 @@ run;
 
 x 'gzip -f -9 ../data/${PROJECT}_data.csv;
 chmod 444 ../data/${PROJECT}_data.csv.gz';
+
+%put DONE!;

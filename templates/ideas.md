@@ -1,0 +1,2 @@
+# Potential ideas for analysis #
+
