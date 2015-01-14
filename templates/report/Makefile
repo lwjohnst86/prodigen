@@ -13,10 +13,10 @@ REP_OPT := options.tex
 REP_TYPE = pdf
 
 # Report file (Will need to add Rmd later)
-REP_IN := $(wildcard *.md)
+REP_IN := $(wildcard *.Rmd)
 
 # Output report file
-REP_OUT := $(REP_IN:.md=.$(REP_TYPE))
+REP_OUT := $(REP_IN:.Rmd=.$(REP_TYPE))
 
 #-------------------------------------------------------------------
 
@@ -30,5 +30,8 @@ report : $(REP_OUT)
 		--filter pandoc-citeproc \
 		--highlight-style=tango \
 		-o $@
+
+%.md: %.Rmd
+	Rscript -e "library(knitr); knit('$<')"
 
 #-------------------------------------------------------------------
