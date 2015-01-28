@@ -13,7 +13,6 @@ This is a <b>pro</b>ject <b>di</b>rectory <b>gen</b>erator (prodigen) that will 
 
 ## --- For using the generated files/scripts ##
 
-* SAS --- scripts containing analysis
 * R --- scripts containing analysis
 * Make --- running commands to generate results output and the manuscript
 * LaTeX --- creating manuscript

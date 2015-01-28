@@ -5,18 +5,13 @@
 #-------------------------------------------------------------------
 
 # Manuscript options file
-REP_OPT := options.tex
-
-# Manuscript file type (for example, pdf, doc, html, etc.).  Can be
-# specified in the make options (for example: `make report
-# REP_TYPE=pdf`)
-REP_TYPE = pdf
+REP_OPT := config.txt
 
 # Report file (Will need to add Rmd later)
 REP_IN := $(wildcard *.Rmd)
 
 # Output report file
-REP_OUT := $(REP_IN:.Rmd=.$(REP_TYPE))
+REP_OUT := $(REP_IN:.Rmd=.md)
 
 #-------------------------------------------------------------------
 
@@ -24,14 +19,7 @@ REP_OUT := $(REP_IN:.Rmd=.$(REP_TYPE))
 
 report : $(REP_OUT)
 
-%.$(REP_TYPE) : %.md
-	@echo "Processing the manuscript"
-	@pandoc $< \
-		--filter pandoc-citeproc \
-		--highlight-style=tango \
-		-o $@
-
-%.md: %.Rmd
-	Rscript -e "library(knitr); knit('$<')"
+%.md: %.Rmd $(REP_OPT) knit.R
+	Rscript knit.R
 
 #-------------------------------------------------------------------

@@ -1,0 +1,36 @@
+---
+geometry: margin=1in
+fontsize: 11pt
+mainfont: "DejaVu Serif"
+papersize: letterpaper
+...
+
+```{r data, echo=FALSE, eval=TRUE}
+##ds <- read.table("((dataset))",
+##                 header = TRUE, na = "", sep = ",")
+
+```
+
+
+```{r options, echo=FALSE, eval=TRUE}
+source("options.R")
+
+```
+
+```{r prep, echo=FALSE, eval=TRUE}
+
+
+```
+
+**Title**
+
+Authors:
+
+Body
+
+```{r knit, eval=TRUE, echo=FALSE, message=FALSE, error=FALSE, results="hide", warning=FALSE}
+## Knit the document into Word.
+knit("abstract.Rmd")
+pandoc("abstract.md", format = "docx")
+
+```
