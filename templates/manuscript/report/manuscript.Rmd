@@ -1,0 +1,35 @@
+---
+title: 
+author: |
+    ((author))
+date: 
+
+abstract: |
+    Abstract goes here
+
+...
+
+```{r library, echo = FALSE, eval = TRUE}
+    library(pander)
+
+```
+
+```{r loadData, echo = FALSE, eval = TRUE}
+load("../data/((project))_data.RData")
+
+```
+
+# Introduction
+
+# Methods
+
+# Results
+
+```{r table1, echo = FALSE, eval = TRUE}
+    ## Using pander
+
+```
+
+# Discussion
+
+# References

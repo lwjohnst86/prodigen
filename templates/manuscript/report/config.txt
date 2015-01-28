@@ -1,0 +1,16 @@
+bibliography: ((biblio))
+csl: ((bibliostyle))
+number-sections: 
+highlight-style: tango
+
+t: html
+mathjax: 
+
+t: latex
+latex-engine: xelatex
+papersize: letterpaper
+geometry: margin=1in
+fontsize: 11pt
+
+t: docx
+mathjax: 
