@@ -4,6 +4,14 @@ Note: This program is still in development.
 
 This is a <b>pro</b>ject <b>di</b>rectory <b>gen</b>erator (prodigen) that will create a project directory structure with template files necessary for managing and analyzing data, as well as writing up a manuscript.  This allows for a standardized approach to having modular research projects.  This program can be found at [github.com/lwjohnst86/prodigen](https://github.com/lwjohnst86/prodigen).
 
+# Installation and Usage #
+
+Install by forking or cloning this repo.
+
+To use `prodigen`, place a symlink of the `prodigen.sh` file somewhere where your PATH can find it (maybe in `~/bin`; see [here](http://unix.stackexchange.com/a/26059) for an explanation of how to add to the PATH).  Make the script executable (`chmod 766 prodigen.sh`).  Confirm that the shell can find it (`which prodigen.sh`).  If the shell shows a path, then the shell can find it.  Run the script by typing `prodigen.sh` in the shell.  And that is it!
+
+*Note*: This so far only works in Linux.  It is not tested for Windows or Mac.
+
 # Dependencies #
 
 ## --- Running the program ##
